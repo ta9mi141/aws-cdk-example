@@ -5,5 +5,13 @@ module.exports = {
     parserOptions: {
         sourceType: "module"
     },
-    rules: {}
+    rules: {
+        "prettier/prettier": [
+            "error",
+            {
+                printWidth: 150,
+                tabWidth: 4
+            }
+        ]
+    }
 };
