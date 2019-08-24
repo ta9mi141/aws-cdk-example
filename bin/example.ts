@@ -6,7 +6,4 @@ import { ComputeStack } from "../lib/compute-stack";
 
 const app = new cdk.App();
 const networkStack = new NetworkStack(app, "NetworkStack");
-new ComputeStack(app, "ComputeStack", {
-    vpc: networkStack.vpc,
-    internalSG: networkStack.internalSG
-});
+new ComputeStack(app, "ComputeStack", { vpc: networkStack.vpc });

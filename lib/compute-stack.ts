@@ -4,12 +4,19 @@ import elbv2 = require("@aws-cdk/aws-elasticloadbalancingv2");
 
 interface ComputeStackProps extends cdk.StackProps {
     vpc: ec2.Vpc;
-    internalSG: ec2.SecurityGroup;
 }
 
 export class ComputeStack extends cdk.Stack {
     constructor(scope: cdk.Construct, id: string, props: ComputeStackProps) {
         super(scope, id, props);
+
+        const internalSG = new ec2.SecurityGroup(this, "InternalSG", {
+            allowAllOutbound: true,
+            securityGroupName: "Internal Security Group",
+            vpc: props.vpc
+        });
+        internalSG.addIngressRule(internalSG, ec2.Port.allTraffic());
+        internalSG.node.applyAspect(new cdk.Tag("Name", "Example-Internal"));
 
         const userData = ec2.UserData.forLinux({ shebang: "#!/bin/bash" });
         userData.addCommands("amazon-linux-extras install -y nginx1.12", "systemctl enable nginx", "systemctl start nginx");
@@ -24,7 +31,7 @@ export class ComputeStack extends cdk.Stack {
                 ).toString(),
                 keyName: this.node.tryGetContext("key"),
                 subnetId: privateSubnet.subnetId,
-                securityGroupIds: [props.internalSG.securityGroupId],
+                securityGroupIds: [internalSG.securityGroupId],
                 tags: [
                     {
                         key: "Name",
@@ -60,5 +67,8 @@ export class ComputeStack extends cdk.Stack {
                 })
             ]
         });
+        const albSG = ec2.SecurityGroup.fromSecurityGroupId(this, "AlbSG", cdk.Fn.select(0, alb.loadBalancerSecurityGroups));
+        albSG.addEgressRule(internalSG, ec2.Port.tcp(80), "Allow outbound traffic to instances on the health check port");
+        internalSG.addIngressRule(albSG, ec2.Port.tcp(80), "Allow inbound traffic to instances on the health check port");
     }
 }
