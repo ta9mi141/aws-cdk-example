@@ -12,21 +12,21 @@
   },
   "devDependencies": {
     "@types/node": "8.10.45",
-    "@typescript-eslint/eslint-plugin": "^2.0.0",
-    "@typescript-eslint/parser": "^2.0.0",
-    "aws-cdk": "^1.5.0",
-    "eslint": "^6.2.1",
-    "eslint-config-prettier": "^6.1.0",
-    "eslint-plugin-prettier": "^3.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.12.0",
+    "@typescript-eslint/parser": "^2.12.0",
+    "aws-cdk": "^1.19.0",
+    "eslint": "^6.7.2",
+    "eslint-config-prettier": "^6.7.0",
+    "eslint-plugin-prettier": "^3.1.2",
     "js-beautify": "^1.10.2",
-    "prettier": "^1.18.2",
-    "ts-node": "^8.1.0",
-    "typescript": "^3.3.3333"
+    "prettier": "^1.19.1",
+    "ts-node": "^8.5.4",
+    "typescript": "^3.7.3"
   },
   "dependencies": {
-    "@aws-cdk/core": "^1.5.0",
-    "@aws-cdk/aws-ec2": "^1.5.0",
-    "@aws-cdk/aws-elasticloadbalancingv2": "^1.5.0",
-    "source-map-support": "^0.5.9"
+    "@aws-cdk/aws-ec2": "^1.19.0",
+    "@aws-cdk/aws-elasticloadbalancingv2": "^1.19.0",
+    "@aws-cdk/core": "^1.19.0",
+    "source-map-support": "^0.5.16"
   }
 }
