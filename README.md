@@ -34,3 +34,11 @@ Use `--context` option to customize stacks.
 ```
 $ npm run cdk deploy "*" -- --context env=production --context key=YOUR_KEY
 ```
+
+## Author
+
+[Takumi Ishii](https://github.com/it-akumi)
+
+## License
+
+[MIT](https://github.com/it-akumi/aws-cdk-example/blob/master/LICENSE)
