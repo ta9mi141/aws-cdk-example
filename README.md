@@ -16,6 +16,13 @@ $ npm install
 $ npm run build
 ```
 
+## Run tests
+
+```
+$ npm run build
+$ npm test
+```
+
 ## Deploy
 
 ```
