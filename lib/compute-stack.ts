@@ -19,7 +19,11 @@ export class ComputeStack extends cdk.Stack {
         internalSG.node.applyAspect(new cdk.Tag("Name", "Example-Internal"));
 
         const userData = ec2.UserData.forLinux({ shebang: "#!/bin/bash" });
-        userData.addCommands("amazon-linux-extras install -y nginx1.12", "systemctl enable nginx", "systemctl start nginx");
+        userData.addCommands(
+            "amazon-linux-extras install -y nginx1.12",
+            "systemctl enable nginx",
+            "systemctl start nginx"
+        );
 
         const targets: elbv2.IApplicationLoadBalancerTarget[] = [];
         for (let privateSubnet of props.vpc.privateSubnets) {

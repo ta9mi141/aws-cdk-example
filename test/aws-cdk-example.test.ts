@@ -27,6 +27,29 @@ test("NetworkStack Fine-Grained Assertions", () => {
     });
 });
 
+test("ComputeStack Fine-Grained Assertions --- AWS::EC2::Instance", () => {
+    const app = new cdk.App();
+    const networkStack = new NetworkStack(app, "NetworkStack", { cidrMask: 24 });
+    const computeStack = new ComputeStack(app, "ComputeStack", { vpc: networkStack.vpc });
+    expect(computeStack).toHaveResource("AWS::EC2::Instance", {
+        "UserData": {
+            "Fn::Base64": `#!/bin/bash
+amazon-linux-extras install -y nginx1.12
+systemctl enable nginx
+systemctl start nginx`
+        }
+    });
+});
+
+test("ComputeStack Fine-Grained Assertions --- AWS::ElasticLoadBalancingV2::LoadBalancer", () => {
+    const app = new cdk.App();
+    const networkStack = new NetworkStack(app, "NetworkStack", { cidrMask: 24 });
+    const computeStack = new ComputeStack(app, "ComputeStack", { vpc: networkStack.vpc });
+    expect(computeStack).toHaveResource("AWS::ElasticLoadBalancingV2::LoadBalancer", {
+        "Scheme": "internet-facing"
+    });
+});
+
 test("NetworkStack Validation Tests With Valid CidrMask", () => {
     const app = new cdk.App();
     const networkStack = new NetworkStack(app, "NetworkStack", { cidrMask: 24 });
