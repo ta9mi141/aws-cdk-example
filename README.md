@@ -1,7 +1,10 @@
 aws-cdk-example
 ====
 
-An example of AWS CDK shown in http://it-akumi.hatenablog.com/entry/2019/08/26/204310.
+An example of AWS CDK shown in following articles.
+
+* http://it-akumi.hatenablog.com/entry/2019/08/26/204310
+* https://qiita.com/it-akumi/items/df57cc5d28a3c7b50f3a
 
 This example consists of 2 stacks, NetworkStack and ComputeStack, which work as below.
 
